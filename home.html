@@ -17,22 +17,7 @@
 <script type="text/javascript" src="resource/js/util/util.js"></script>
 </head>
 <body>
-	<!-- 
-	<div class="hero-unit">
-		<h1 class="text-center">Heading</h1>
-		<p class="text-center">Tagline</p>
-		<p></p>
-	</div>
-	<div class="container">
-		<div class="form-group">
-    <label for="inputFilePath">文件路径</label>
-    <input type="filePath" class="form-control" id="inputFilePath" placeholder="文件路径">
-  </div>
-		<button type="button" class="btn btn-primary btn-large" onclick="show();">按钮</button>
-	</div>
-	 -->
 	<div id="wrap">
-
 		<!-- Begin page content -->
 		<div class="container">
 			<div class="page-header">
@@ -43,7 +28,8 @@
 				<div class="input-append">
 					<label class="control-label">文件路径 :</label> <input class="span2"
 						id="inputFilePath" type="text" value="d:\xml\">
-					<button type="button" class="btn btn-primary" onclick="show();">按钮</button>
+					<button type="button" class="btn btn-primary" onclick="show();">确定</button>
+					<button type="button" class="btn btn-primary" onclick="sendXML();">发送xml</button>
 				</div>
 			</form>
 			<table class="table table-condensed" id="fileTable">

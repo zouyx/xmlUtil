@@ -1,14 +1,19 @@
 function show() {
-	readFiles($('#inputFilePath').val());
+	readFiles(getPath());
+}
+
+//获取文件地址
+function getPath(){
+	return $('#inputFilePath').val();
 }
 
 //读取文件夹对象
 function readFiles(path) {
 	//初始化fso对象; 
 	fso = new ActiveXObject("Scripting.FileSystemObject");
-	
-	this.clearAllRows();
-	
+
+	clearAllRows();
+
 	fldr = fso.GetFolder(path);
 	fc = new Enumerator(fldr.files);
 	for (; !fc.atEnd(); fc.moveNext()) //添加所有文件   
@@ -16,7 +21,7 @@ function readFiles(path) {
 		//取文件对象  
 		file = fc.item();
 		//        alert("type:"+s.type + ", name:"+s.name);
-		var html = this.getTableRowHtml(file);
+		var html = getTableRowHtml(file);
 	}
 }
 
@@ -38,11 +43,60 @@ function getTableRowHtml(file) {
 }
 
 //清除table中的所有行
-function clearAllRows(){
-	$("#fileTable :not(.title) ").remove();
+function clearAllRows() {
+	$("#fileTable :not(.title)").remove();
 }
 
+//发送xml
+function sendXML() {
+	$('#fileTable tr td  input:checked').each(function() {
+		var filePathPrefix;
+		var fileName=$(this).parent().next().next().html();
+		filePathPrefix=getPath();
+		var filePath=filePathPrefix+fileName;
+		
+		var file=readFile(filePath);
+				$.ajax({
+					type : "get",
+					url : "http://www.cnblogs.com/rss",
+					beforeSend : function(XMLHttpRequest) {
+						// ShowLoading();
+					},
+					success : function(data, textStatus) {
+//						$(".ajax.ajaxResult").html("");
+//						$("item", data).each(
+//								function(i, domEle) {
+//									$(".ajax.ajaxResult").append(
+//											"<li>"
+//													+ $(domEle).children(
+//															"title").text()
+//													+ "</li>");
+//								});
+						alert('alert');
+					},
+					complete : function(XMLHttpRequest, textStatus) {
+						//HideLoading();
+					},
+					error : function() {
+						//请求出错处理
+					}
+				});
+	});
+}
 
-function sendXML(){
+//读取文件
+function readFile(filePath){
+	var fso, ts, s;
+	var ForReading = 1;
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	// 打开文件
+	ts = fso.OpenTextFile(filePath, ForReading);
+	// 读取文件一行内容到字符串
+	s = ts.ReadLine();
+	// 显示字符串信息
+//	alert("File contents = ‘" + s + "‘");
+	// 关闭文件
+	ts.Close();
 	
+	return s;
 }
