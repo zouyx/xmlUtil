@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XMLUtil</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="resource/css/bootstrap.min.css" rel="stylesheet"
+	media="screen"></link>
+<link href="resource/css/bootstrap-responsive.min.css" rel="stylesheet"
+	media="screen"></link>
+<link href="resource/css/sticky-footer.css" rel="stylesheet"
+	media="screen"></link>
+<link rel="shortcut icon" type="image/ico"
+	href="resource/img/favicon.ico" />
+<script type="text/javascript" src="resource/js/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="resource/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="resource/js/util/util.js"></script>
+</head>
+<body>
+	<!-- 
+	<div class="hero-unit">
+		<h1 class="text-center">Heading</h1>
+		<p class="text-center">Tagline</p>
+		<p></p>
+	</div>
+	<div class="container">
+		<div class="form-group">
+    <label for="inputFilePath">文件路径</label>
+    <input type="filePath" class="form-control" id="inputFilePath" placeholder="文件路径">
+  </div>
+		<button type="button" class="btn btn-primary btn-large" onclick="show();">按钮</button>
+	</div>
+	 -->
+	<div id="wrap">
+
+		<!-- Begin page content -->
+		<div class="container">
+			<div class="page-header">
+				<h1>XMLUtil</h1>
+			</div>
+
+			<form class="form-horizontal">
+				<div class="input-append">
+					<label class="control-label">文件路径 :</label> <input class="span2"
+						id="inputFilePath" type="text" value="d:\xml\">
+					<button type="button" class="btn btn-primary" onclick="show();">按钮</button>
+				</div>
+			</form>
+			<table class="table table-condensed" id="fileTable">
+				<tr class='title'>
+					<td>选择</td>
+					<td>类型</td>
+					<td>文件名</td>
+					<td>状态</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="push"></div>
+	</div>
+
+	<div id="footer">
+		<div class="container">
+			<p class="muted credit">Joe.Zou.</p>
+		</div>
+	</div>
+</body>

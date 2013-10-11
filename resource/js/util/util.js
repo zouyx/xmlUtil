@@ -1,21 +1,48 @@
-function show(){
+function show() {
 	readFiles($('#inputFilePath').val());
 }
 
-function readFiles(path)  
-{
-    //³õÊ¼»¯fso¶ÔÏó;  
-    fso = new ActiveXObject("Scripting.FileSystemObject");  
-    //¸ù¾İÂ·¾¶»ñÈ¡ÎÄ¼ş¼Ğ;  
-    fldr = fso.GetFolder(path);  
-    //»ñÈ¡Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼ş;  
-    fc = new Enumerator(fldr.files);  
-    //±éÀúËùÓĞÎÄ¼ş  
-    for(;!fc.atEnd();fc.moveNext())     
-    {
-        //È¡ÎÄ¼ş¶ÔÏó  
-        s=fc.item();       
-        //Êä³öÎÄ¼şµÄÀàĞÍºÍÃû³Æ;  
-        alert("type:"+s.type + ", name:"+s.name );  
-    }  
-}  
+//è¯»å–æ–‡ä»¶å¤¹å¯¹è±¡
+function readFiles(path) {
+	//åˆå§‹åŒ–fsoå¯¹è±¡; 
+	fso = new ActiveXObject("Scripting.FileSystemObject");
+	
+	this.clearAllRows();
+	
+	fldr = fso.GetFolder(path);
+	fc = new Enumerator(fldr.files);
+	for (; !fc.atEnd(); fc.moveNext()) //æ·»åŠ æ‰€æœ‰æ–‡ä»¶   
+	{
+		//å–æ–‡ä»¶å¯¹è±¡  
+		file = fc.item();
+		//        alert("type:"+s.type + ", name:"+s.name);
+		var html = this.getTableRowHtml(file);
+	}
+}
+
+//æŠŠrowå¢åŠ åˆ°tableä¸­
+function getTableRowHtml(file) {
+	var checkBox = $('<input type="checkbox" />');
+	var fileAttrs = new Array(checkBox, file.type, file.name, 'å‡†å¤‡å°±ç»ª');
+	var tr = $('<tr></tr>');
+	for ( var i = 0; i < fileAttrs.length; i++) {
+		var td = $('<td></td>');
+		if (fileAttrs[i] instanceof jQuery) {
+			td.append(fileAttrs[i]);
+		} else {
+			td.text(fileAttrs[i]);
+		}
+		tr.append(td);
+	}
+	$('#fileTable').append(tr);
+}
+
+//æ¸…é™¤tableä¸­çš„æ‰€æœ‰è¡Œ
+function clearAllRows(){
+	$("#fileTable :not(.title) ").remove();
+}
+
+
+function sendXML(){
+	
+}
