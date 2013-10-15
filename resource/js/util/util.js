@@ -1,33 +1,34 @@
+jQuery.support.cors = true;
+
 function show() {
 	readFiles(getPath());
 }
 
-//获取文件地址
-function getPath(){
+// 获取文件地址
+function getPath() {
 	return $('#inputFilePath').val();
 }
 
-//读取文件夹对象
+// 读取文件夹对象
 function readFiles(path) {
-	//初始化fso对象; 
-	fso = new ActiveXObject("Scripting.FileSystemObject");
+	// 初始化fso对象;
+	var fso = new ActiveXObject("Scripting.FileSystemObject");
 
 	clearAllRows();
 
-	fldr = fso.GetFolder(path);
-	fc = new Enumerator(fldr.files);
-	for (; !fc.atEnd(); fc.moveNext()) //添加所有文件   
+	var fldr = fso.GetFolder(path);
+	var fc = new Enumerator(fldr.files);
+	for (; !fc.atEnd(); fc.moveNext()) // 添加所有文件
 	{
-		//取文件对象  
+		// 取文件对象
 		file = fc.item();
-		//        alert("type:"+s.type + ", name:"+s.name);
 		var html = getTableRowHtml(file);
 	}
 }
 
-//把row增加到table中
+// 把row增加到table中
 function getTableRowHtml(file) {
-	var checkBox = $('<input type="checkbox" />');
+	var checkBox = $('<input type="checkbox" checked/>');
 	var fileAttrs = new Array(checkBox, file.type, file.name, '准备就绪');
 	var tr = $('<tr></tr>');
 	for ( var i = 0; i < fileAttrs.length; i++) {
@@ -39,64 +40,72 @@ function getTableRowHtml(file) {
 		}
 		tr.append(td);
 	}
-	$('#fileTable').append(tr);
+	$('#fileTable tbody').append(tr);
 }
 
-//清除table中的所有行
+// 清除table中的所有行
 function clearAllRows() {
-	$("#fileTable :not(.title)").remove();
+	$("#fileTable tbody tr").remove();
 }
 
-//发送xml
+// 发送xml
 function sendXML() {
-	$('#fileTable tr td  input:checked').each(function() {
-		var filePathPrefix;
-		var fileName=$(this).parent().next().next().html();
-		filePathPrefix=getPath();
-		var filePath=filePathPrefix+fileName;
-		
-		var file=readFile(filePath);
-				$.ajax({
-					type : "get",
-					url : "http://www.cnblogs.com/rss",
-					beforeSend : function(XMLHttpRequest) {
-						// ShowLoading();
-					},
-					success : function(data, textStatus) {
-//						$(".ajax.ajaxResult").html("");
-//						$("item", data).each(
-//								function(i, domEle) {
-//									$(".ajax.ajaxResult").append(
-//											"<li>"
-//													+ $(domEle).children(
-//															"title").text()
-//													+ "</li>");
-//								});
-						alert('alert');
-					},
-					complete : function(XMLHttpRequest, textStatus) {
-						//HideLoading();
-					},
-					error : function() {
-						//请求出错处理
-					}
-				});
+	$('#fileTable tbody tr td  input:checked').each(function() {
+		var fileName = $(this).parent().next().next().html();
+		var filePathPrefix = getPath();
+		var filePath = filePathPrefix + fileName;
+
+		var file = readFile(filePath);
+
+		var msg = $(this).parent().parent();
+		$.ajax({
+			url : 'http://192.168.47.108:8001/ePolicy/commonthirdpartyservlet',
+			// url : 'http://cb.alimama.cn/js/replace_pid.min.js',
+			type : 'post',
+			dataType : 'html',
+			data : file,
+			success : function(data, textStatus, xhr) {
+				sucMsg(msg);
+			},
+			error : function(XmlHttpRequest, textStatus, errorThrown) {
+				errMsg(msg);
+			}
+		});
+
 	});
 }
 
-//读取文件
-function readFile(filePath){
+// 写成功信息
+function sucMsg(element){
+	writeMsg(element,'success','交互成功');
+}
+
+// 写失败信息
+function errMsg(element){
+	writeMsg(element,'error','交互失败');
+}
+
+//写信息信息
+function writeMsg(element,msg,showMsg){
+	//增加样式
+	element.addClass(msg);
+	//找出过滤信息
+	element.children().last().html(showMsg)
+}
+
+
+// 读取文件
+function readFile(filePath) {
 	var fso, ts, s;
 	var ForReading = 1;
 	fso = new ActiveXObject("Scripting.FileSystemObject");
 	// 打开文件
-	ts = fso.OpenTextFile(filePath, ForReading);
-	// 读取文件一行内容到字符串
-	s = ts.ReadLine();
-	// 显示字符串信息
-//	alert("File contents = ‘" + s + "‘");
-	// 关闭文件
-	ts.Close();
+	var f = fso.GetFile(filePath);
+	//将文件转成数据流打开
+    var ts   =   f.OpenAsTextStream(1,-2);      
+    var txt   =   ts.ReadAll();   //读全文
+    //关闭数据流
+    ts.Close();  
 	
-	return s;
+	return txt;
 }
