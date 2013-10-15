@@ -25,19 +25,20 @@
 			</div>
 
 			<form class="form-horizontal">
-				<div class="input-append">
-					<label class="control-label">文件路径 :</label> <input
+				<div class="input-append input-prepend">
+					<span class="add-on"><i class="icon-file"></i></span><input
 						class="input-large" id="inputFilePath" type="text" value="d:\xml\">
 					<button type="button" class="btn btn-primary" onclick="show();">确定</button>
 				</div>
 				<hr />
-				<div class="input-append">
-					<label class="control-label">URL :</label> <input
+				<div class="input-append input-prepend">
+					<span class="add-on"><i class="icon-upload"></i></span><input
 						class="input-xlarge" id="inputUrl" type="text"
 						value="http://192.168.47.108:8001/ePolicy/commonthirdpartyservlet">
 					<button type="button" class="btn btn-primary" onclick="sendXML();">发送xml</button>
 				</div>
 			</form>
+			<hr/>
 			<table class="table table-condensed" id="fileTable">
 				<thead>
 					<tr class='title'>
@@ -51,7 +52,8 @@
 				</tbody>
 			</table>
 			<hr/>
-			<div class="accordion" id="accordion2">
+			<h3>返回结果</h3>
+			<div class="accordion" id="result">
 			</div>
 		</div>
 

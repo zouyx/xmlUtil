@@ -1,4 +1,6 @@
 jQuery.support.cors = true;
+//用于生成result的id
+var reusltCount=0;
 
 function show() {
 	readFiles(getPath());
@@ -58,6 +60,9 @@ function sendXML() {
 	var filePathPrefix = getPath();
 	
 	var url = getURL();
+	
+	//重新初始化id需要的参数
+	reusltCount=0;
 	$('#fileTable tbody tr td  input:checked').each(function() {
 		var fileName = $(this).parent().next().next().html();
 		var filePath = filePathPrefix + fileName;
@@ -73,9 +78,14 @@ function sendXML() {
 			data : file,
 			success : function(data, textStatus, xhr) {
 				sucMsg(msg);
+				writeResult(fileName,msg);
 			},
 			error : function(XmlHttpRequest, textStatus, errorThrown) {
 				errMsg(msg);
+				writeResult(fileName,errorThrown);
+			},
+			beforeSend:function(jqXHR, settings) {
+				loadMsg(msg);
 			}
 		});
 
@@ -92,8 +102,15 @@ function errMsg(element){
 	writeMsg(element,'error','交互失败');
 }
 
+//写失败信息
+function loadMsg(element){
+	writeMsg(element,'info','交互中');
+}
+
 //写信息信息
 function writeMsg(element,msg,showMsg){
+	//删除样式
+	element.removeClass();
 	//增加样式
 	element.addClass(msg);
 	//找出过滤信息
@@ -117,16 +134,37 @@ function readFile(filePath) {
 	return txt;
 }
 
-function writeHtml(){
-	<div class="accordion-group">
-	<div class="accordion-heading">
-		<a class="accordion-toggle" data-toggle="collapse"
-			data-parent="#accordion2" href="#collapseOne"> Collapsible
-			Group Item #1 </a>
-	</div>
-	<div id="collapseOne" class="accordion-body collapse in">
-		<div class="accordion-inner">Anim pariatur cliche...</div>
-	</div>
-</div>
+//写结果
+function writeResult(title,msg){
+	var resultId="collapse"+reusltCount;
+	
+	reusltCount++;
+	
+	//组织结果头
+	var group = $('<div class="accordion-group"></div>');
+	var heading = $('<div class="accordion-heading"></div>');
+	var reusltHeading=$('<a class="accordion-toggle" data-toggle="collapse" data-parent="#result" href="#'+resultId+'"></a>');
+	reusltHeading.html(title);
+	heading.append(reusltHeading);
+	group.append(heading);
+	
+	//组织结果
+	var body=$('<div id="'+resultId+'" class="accordion-body collapse in"></div>');
+	var resultBody=$('<div class="accordion-inner"></div>');
+	resultBody.html(msg);
+	body.append(resultBody);
+	group.append(body);
+	
+	//结果append到控件
+	$('#result').append(group);
 }
-}
+//	<div class="accordion-group">
+//	<div class="accordion-heading">
+//		<a class="accordion-toggle" data-toggle="collapse"
+//			data-parent="#accordion2" href="#collapseOne"> Collapsible
+//			Group Item #1 </a>
+//	</div>
+//	<div id="collapseOne" class="accordion-body collapse in">
+//		<div class="accordion-inner">Anim pariatur cliche...</div>
+//	</div>
+//</div>
