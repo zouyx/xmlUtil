@@ -9,6 +9,11 @@ function getPath() {
 	return $('#inputFilePath').val();
 }
 
+//获取URL
+function getURL() {
+	return $('#inputUrl').val();
+}
+
 // 读取文件夹对象
 function readFiles(path) {
 	// 初始化fso对象;
@@ -50,16 +55,18 @@ function clearAllRows() {
 
 // 发送xml
 function sendXML() {
+	var filePathPrefix = getPath();
+	
+	var url = getURL();
 	$('#fileTable tbody tr td  input:checked').each(function() {
 		var fileName = $(this).parent().next().next().html();
-		var filePathPrefix = getPath();
 		var filePath = filePathPrefix + fileName;
 
 		var file = readFile(filePath);
 
 		var msg = $(this).parent().parent();
 		$.ajax({
-			url : 'http://192.168.47.108:8001/ePolicy/commonthirdpartyservlet',
+			url : url,
 			// url : 'http://cb.alimama.cn/js/replace_pid.min.js',
 			type : 'post',
 			dataType : 'html',
@@ -108,4 +115,18 @@ function readFile(filePath) {
     ts.Close();  
 	
 	return txt;
+}
+
+function writeHtml(){
+	<div class="accordion-group">
+	<div class="accordion-heading">
+		<a class="accordion-toggle" data-toggle="collapse"
+			data-parent="#accordion2" href="#collapseOne"> Collapsible
+			Group Item #1 </a>
+	</div>
+	<div id="collapseOne" class="accordion-body collapse in">
+		<div class="accordion-inner">Anim pariatur cliche...</div>
+	</div>
+</div>
+}
 }
