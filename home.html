@@ -24,25 +24,19 @@
 				<h1>XMLUtil</h1>
 			</div>
 
-			<form class="form-horizontal">
-				<div class="input-append input-prepend">
-					<span class="add-on"><i class="icon-file"></i></span><input
-						class="input-large" id="inputFilePath" type="text" value="d:\xml\">
-					<button type="button" class="btn btn-primary" onclick="show();">确定</button>
-				</div>
-				<hr />
-				<div class="input-append input-prepend">
-					<span class="add-on"><i class="icon-upload"></i></span><input
-						class="input-xlarge" id="inputUrl" type="text"
-						value="http://192.168.47.108:8001/ePolicy/commonthirdpartyservlet">
-					<button type="button" class="btn btn-primary" onclick="sendXML();">发送xml</button>
-				</div>
-			</form>
-			<hr/>
+			<div class="input-append input-prepend">
+				<span class="add-on"><i class="icon-folder-open"
+					title="文件夹路径"></i> </span><input placeholder="文件夹路径" class="input-large"
+					id="inputFilePath" type="text" value="d:\xml\" />
+				<button type="button" class="btn btn-primary" onclick="show();">
+					<i class="icon-search icon-white"></i> 读取文件
+				</button>
+			</div>
+			<hr />
 			<table class="table table-condensed" id="fileTable">
 				<thead>
 					<tr class='title'>
-						<td>选择</td>
+						<td>是否发送</td>
 						<td>类型</td>
 						<td>文件名</td>
 						<td>状态</td>
@@ -51,10 +45,21 @@
 				<tbody>
 				</tbody>
 			</table>
-			<hr/>
-			<h3>返回结果</h3>
-			<div class="accordion" id="result">
+			<hr />
+			<div class="input-append input-prepend">
+				<span class="add-on"><i class="icon-signal" title="请求URL"></i>
+				</span><input class="input-xlarge" id="inputUrl" type="text"
+					value="http://192.168.47.108:8001/ePolicy/commonthirdpartyservlet"
+					placeholder="请求URL" />
+				<button type="button" class="btn btn-primary" onclick="sendXML();">
+					<i class="icon-upload icon-white"></i> 发送请求
+				</button>
 			</div>
+			<hr />
+			<h3>
+				<i class="icon-tasks"></i> 返回结果
+			</h3>
+			<div class="accordion" id="result"></div>
 		</div>
 
 		<div id="push"></div>
@@ -62,7 +67,9 @@
 
 	<div id="footer">
 		<div class="container">
-			<p class="muted credit">Joe.Zou.</p>
+			<p class="muted credit">
+				<i class="icon-user"></i> Joe.Zou.
+			</p>
 		</div>
 	</div>
 </body>

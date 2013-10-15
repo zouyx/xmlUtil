@@ -158,13 +158,3 @@ function writeResult(title,msg){
 	//结果append到控件
 	$('#result').append(group);
 }
-//	<div class="accordion-group">
-//	<div class="accordion-heading">
-//		<a class="accordion-toggle" data-toggle="collapse"
-//			data-parent="#accordion2" href="#collapseOne"> Collapsible
-//			Group Item #1 </a>
-//	</div>
-//	<div id="collapseOne" class="accordion-body collapse in">
-//		<div class="accordion-inner">Anim pariatur cliche...</div>
-//	</div>
-//</div>
