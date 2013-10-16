@@ -55,14 +55,28 @@ function clearAllRows() {
 	$("#fileTable tbody tr").remove();
 }
 
+function clearAllStatus(){
+	$('#fileTable tbody tr').each(function() {
+		$(this).removeClass();
+		$(this).children().last().html('准备就绪');
+	});
+}
+
 // 发送xml
 function sendXML() {
+	//发送xml的时候需要重新初始化的值-begin
+	//重新初始化id需要的参数
+	reusltCount=0;
+	//清空结果
+	$('#result').html('');
+	//清空状态
+	this.clearAllStatus();
+	//发送xml的时候需要重新初始化的值-end
+	
+	
 	var filePathPrefix = getPath();
 	
 	var url = getURL();
-	
-	//重新初始化id需要的参数
-	reusltCount=0;
 	$('#fileTable tbody tr td  input:checked').each(function() {
 		var fileName = $(this).parent().next().next().html();
 		var filePath = filePathPrefix + fileName;
@@ -72,13 +86,12 @@ function sendXML() {
 		var msg = $(this).parent().parent();
 		$.ajax({
 			url : url,
-			// url : 'http://cb.alimama.cn/js/replace_pid.min.js',
 			type : 'post',
 			dataType : 'html',
 			data : file,
 			success : function(data, textStatus, xhr) {
 				sucMsg(msg);
-				writeResult(fileName,msg);
+				writeResult(fileName,data);
 			},
 			error : function(XmlHttpRequest, textStatus, errorThrown) {
 				errMsg(msg);
@@ -151,10 +164,13 @@ function writeResult(title,msg){
 	//组织结果
 	var body=$('<div id="'+resultId+'" class="accordion-body collapse in"></div>');
 	var resultBody=$('<div class="accordion-inner"></div>');
-	resultBody.html(msg);
+	var xmp=$('<xmp></xmp');
+	xmp.text(msg);
+	resultBody.append(xmp);
 	body.append(resultBody);
 	group.append(body);
 	
 	//结果append到控件
 	$('#result').append(group);
 }
+
