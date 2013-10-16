@@ -2,6 +2,7 @@ jQuery.support.cors = true;
 //用于生成result的id
 var reusltCount=0;
 
+
 function show() {
 	readFiles(getPath());
 }
