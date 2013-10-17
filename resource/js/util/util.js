@@ -1,3 +1,4 @@
+jQuery.support.cors = true;
 // 用于生成result的id
 var reusltCount = 0;
 
@@ -119,7 +120,6 @@ function readXML() {
 }
 
 function sendXML(fileData,fileName,msg){
-	jQuery.support.cors = true;
 	$.ajax({
 		url : getURL(),
 		type : 'post',
