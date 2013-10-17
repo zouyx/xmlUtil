@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>XMLUtil</title>
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="resource/css/bootstrap.min.css" rel="stylesheet"
 	media="screen"></link>
@@ -26,13 +27,16 @@
 
 			<div class="input-append input-prepend">
 				<span class="add-on"><i class="icon-folder-open"
-					title="文件夹路径"></i> </span><input placeholder="文件夹路径" class="input-large"
-					id="inputFilePath" type="text" value="d:\xml\" />
-				<button type="button" class="btn btn-primary" onclick="show();">
+					title="文件夹路径"></i> </span>
+					<input id="inputFile" type="file" style='display:none'/>
+					<input placeholder="文件夹路径" class="input-large" id="inputFilePath" type="text" value="d:\xml\" />
+				<button type="button" class="btn btn-primary" onclick="show();" id='showBtn'>
 					<i class="icon-search icon-white"></i> 读取文件
 				</button>
 			</div>
-			<hr />
+			<div class="input-append input-prepend">
+			</div>
+			<hr id='splitResult'/>
 			<table class="table table-condensed" id="fileTable">
 				<thead>
 					<tr class='title'>
@@ -47,17 +51,11 @@
 			</table>
 			<hr />
 			<div class="input-append input-prepend">
-				<span class="add-on"><i class="icon-time" title="请求间隔"></i>
-				</span><input class="input-mini" id="inputInterval" type="text"
-					value="0"
-					placeholder="请求间隔" />
-			</div>
-			<div class="input-append input-prepend">
 				<span class="add-on"><i class="icon-signal" title="请求URL"></i>
 				</span><input class="input-xlarge" id="inputUrl" type="text"
-					value="http://192.168.47.108:8001/ePolicy/commonthirdpartyservlet"
+					value="http://192.168.47.108:9101/ePolicy/commonthirdpartyservlet"
 					placeholder="请求URL" />
-				<button type="button" class="btn btn-primary" onclick="sendXML();">
+				<button type="button" class="btn btn-primary" onclick="readXML();">
 					<i class="icon-upload icon-white"></i> 发送请求
 				</button>
 			</div>
@@ -74,7 +72,7 @@
 	<div id="footer" class='footer'>
 		<div class="container">
 			<p class="muted credit text-right">
-				Power By <i class="icon-user"></i> Joe.Zou.   © 2013 
+				Power By <i class="icon-user"></i> Joe.Zou.  © 2013 
 			</p>
 		</div>
 	</div>
