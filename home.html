@@ -23,6 +23,40 @@
 		<div class="container">
 			<div class="page-header">
 				<h1>XMLUtil</h1>
+				<a href="#helpModal" role="button" class="btn" data-toggle="modal">帮助</a>
+			</div>
+			<!-- helpModal -->
+			<div id="helpModal" class="modal hide fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 id="myModalLabel">帮助</h3>
+				</div>
+				<div class="modal-body">
+					<h3>1.选择文件</h3>
+					<h4>1.1.IE:</h4>
+					<p>1.1.1.输入需要测试的Xml所在的文件夹</p>
+					<img alt="" src="resource/img/help/ieDir.jpg"/>
+					<br/>
+					<p>1.1.2.选择需要发送的Xml文件</p>
+					<img alt="" src="resource/img/help/ieReadDir.jpg"/>
+					<br/>
+					<h4>1.2.Chrome:</h4>
+					<p>1.2.1.选择需要发送的Xml文件</p>
+					<img alt="" src="resource/img/help/chromefile.jpg"/>
+					<hr/>
+					<h3>2.发送请求</h3>
+					<p>2.1.填写地址,发送请求</p>
+					<img alt="" src="resource/img/help/send.jpg"/>
+					<hr/>
+					<h3>3.查看结果</h3>
+					<p>3.1.查看返回结果</p>
+					<img alt="" src="resource/img/help/result.jpg"/>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+				</div>
 			</div>
 
 			<div class="input-append input-prepend">
@@ -50,10 +84,12 @@
 				</tbody>
 			</table>
 			<hr />
+			<!--http://192.168.5.108:8001/iClaim/autojob.js-->
+			<!--http://192.168.47.108:9101/ePolicy/commonthirdpartyservlet-->
 			<div class="input-append input-prepend">
 				<span class="add-on"><i class="icon-signal" title="请求URL"></i>
 				</span><input class="input-xlarge" id="inputUrl" type="text"
-					value="http://192.168.47.108:9101/ePolicy/commonthirdpartyservlet"
+					value="http://192.168.5.222:7101/iClaim/autojob.js"
 					placeholder="请求URL" />
 				<button type="button" class="btn btn-primary" onclick="readXML();">
 					<i class="icon-upload icon-white"></i> 发送请求

@@ -16,6 +16,8 @@ $(document).ready(function() {
 		$('#splitResult').toggle();
 		$('#inputFile').toggle();
 	}
+	
+	
 });
 
 function show() {
@@ -125,6 +127,7 @@ function sendXML(fileData,fileName,msg){
 		type : 'post',
 		dataType : 'html',
 		data : fileData,
+		timeout:60000,
 		success : function(data, textStatus, xhr) {
 			if(isIE()){
 				sucMsg(msg);
